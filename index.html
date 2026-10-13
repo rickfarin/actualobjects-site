@@ -635,6 +635,11 @@ body.field{overflow:hidden}
 .ratio .rr2,.ratio .mxb a.rr2{grid-template-columns:var(--rlw) minmax(0,1fr)}
 .rs{display:flex;gap:2px;overflow:hidden;min-width:0}
 .rs .rt{flex:none;aspect-ratio:auto;height:var(--rh)}
+/* phones: each row's frames scroll sideways (swipe left/right), running off the right edge */
+@media (max-width:700px){
+  .rs{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;margin-right:calc(-1 * var(--g));padding-right:var(--g)}
+  .rs::-webkit-scrollbar{display:none}
+}
 .ratio .rx-mat{display:flex;flex-wrap:wrap;gap:2px}
 .ratio .rx-mat .rt{height:clamp(140px,18vw,280px);width:auto;flex:none}
 
@@ -2300,7 +2305,7 @@ function drawRows(){
     if (p.year !== lastY && !(rowsYear!=="All")){ h += `<div class="ydiv"><span>${yl(p)}</span></div>`; lastY = p.year; }
     h += `<a class="rr2" href="#${p.slug}" data-n="${p.no}" aria-expanded="false" aria-label="${pad(p.no)} ${esc(p.client)}, ${esc(p.title)}, ${p.year}">
       <span class="rl"><span>${pad(p.no)}</span><span>${esc(p.client)}</span><span>${esc(p.title)}</span></span>
-      ${RATIO ? `<span class="rs">${stripOf(p, mob ? innerWidth*2.5 : innerWidth-32-152, th).map((c,k)=>{ const w = th*arOf(c); return `<span class="rt" style="--k:${k};width:${w.toFixed(1)}px"${c.v?` data-v="${cutVid(c, w*dpr, th*dpr)}"`:""}><img alt="" loading="lazy" decoding="async" src="${cutImg(c, w*dpr, th*dpr)}"></span>`; }).join("")}</span>`
+      ${RATIO ? `<span class="rs">${stripOf(p, mob ? innerWidth*3.5 : innerWidth-32-152, th).map((c,k)=>{ const w = th*arOf(c); return `<span class="rt" style="--k:${k};width:${w.toFixed(1)}px"${c.v?` data-v="${cutVid(c, w*dpr, th*dpr)}"`:""}><img alt="" loading="lazy" decoding="async" src="${cutImg(c, w*dpr, th*dpr)}"></span>`; }).join("")}</span>`
       : cutsOf(p, n).map((c,k)=>`<span class="rt" style="--k:${k}"${c.v?` data-v="${cutVid(c, tw*dpr, th*dpr)}"`:""}><img alt="" loading="lazy" decoding="async" src="${cutImg(c, tw*dpr, th*dpr)}"></span>`).join("")}
     </a>`;
   });
