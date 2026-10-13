@@ -219,6 +219,19 @@ a.row:hover,a.row:focus-visible{background:var(--fg);color:var(--bg);outline:0}
 @media (max-width:900px){ .bk-pl{columns:3} }
 @media (max-width:700px){ .bk-g{grid-template-columns:1fr} .bk-c,.bk-t{grid-column:1} .bk-c{max-width:220px} .bk-t{padding-top:14px} .bk-pl{margin-left:0;columns:2} }
 .cr .lead{font-weight:500}
+#foot{display:flex;justify-content:space-between;gap:1.5em;padding:calc(var(--g) * 3) var(--g) calc(var(--g) + env(safe-area-inset-bottom,0px));font-size:var(--s);opacity:.5;transition:opacity .3s}
+#foot a{color:inherit;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+#foot a:hover{opacity:1}
+body.field #foot{position:fixed;right:var(--g);bottom:var(--g);padding:0;z-index:40}
+.pv .lead{font-weight:500}
+.pv .pv-t{grid-column:1/9;max-width:40em;display:flex;flex-direction:column;gap:1.1em}
+.pv .pv-t h2{margin-top:1em !important}
+.pv .pv-t h2{font-size:inherit;font-weight:500;margin:0 0 .2em}
+.pv .pv-t p{margin:0}
+.pv .pv-t ul{margin:.3em 0 0;padding:0 0 0 1.1em}
+.pv .pv-t li{margin:.15em 0}
+.pv .pv-t > div{display:flex;flex-direction:column;gap:.4em}
+@media (max-width:700px){ .pv .pv-t{grid-column:1/-1} }
 .cr .lead .n{margin-left:.25em}
 .jb{padding-bottom:calc(var(--g) * 4)}
 .jr{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,3fr) minmax(0,3fr);column-gap:var(--g);width:100%;padding:0}
@@ -244,6 +257,7 @@ button.jr:hover>span:first-child,.jw.xp button.jr>span:first-child{text-decorati
 #nl.bad input{animation:nlshake .4s}
 @keyframes nlshake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 @media (max-width:700px){ #pops{left:0;right:0;bottom:0;flex-direction:column;align-items:stretch;gap:0;border-top:1px solid color-mix(in srgb, currentColor 20%, transparent);background:var(--bg);padding-bottom:env(safe-area-inset-bottom,0px)} #nl{margin:0;padding:14px var(--g) 8px;flex-wrap:wrap;row-gap:10px;font-size:16px} #nl .nl-h{flex-basis:100%} #nl input{flex:1;width:auto;min-width:0;font-size:16px} }
+#ck .ck-p{color:inherit;opacity:.5;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
 #ck button{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
 @media (max-width:700px){ #ck{padding:12px var(--g) 14px;gap:1em;font-size:16px} }
 .wide ul{columns:2;column-gap:var(--g)}
@@ -752,6 +766,7 @@ body.field{overflow:hidden}
 </section>
 
 <main id="app" hidden></main>
+<footer id="foot" hidden><span>&copy; <span class="yr"></span> Actual Objects LLC</span><a href="#privacy">Privacy</a></footer>
 <div id="peek" aria-hidden="true"></div>
 
 <script>
@@ -1332,6 +1347,36 @@ function viewBook(){
   </div>`;
   reveal(app);
 }
+/* PRIVACY — plain statement of what the site collects */
+function viewPrivacy(){
+  // [heading, paragraphs[], list items[]]
+  const S = [
+    ["", ["This policy covers actualobjects.net, run by Actual Objects LLC (“Actual Objects”, “we”, “us”). It explains what data the site collects, why, who handles it, and the choices you have. Last updated October 2026."]],
+    ["Data we collect", ["Data you give us:"], ["Your email address, if you subscribe to the newsletter.", "Anything you send us by email, such as your name, job title, contact details and the content of your message."]],
+    ["", ["Data collected automatically, only if you accept cookies:"], ["Pages and projects viewed, time on the site, and the site that referred you.", "Device and browser type, and approximate location (country or city) derived from your IP address.", "A cookie that recognises you as a returning visitor."]],
+    ["", ["Our hosting providers also receive standard request data, such as IP address, browser type and the time of each visit, in order to deliver and protect the site."]],
+    ["How we use it", [], ["To run, maintain and improve the site.", "To understand which work people look at.", "To send the newsletter, if you subscribed.", "To reply to enquiries.", "To keep records and meet legal obligations."]],
+    ["", ["We do not sell personal data, use it for advertising, or use it to make automated decisions about you."]],
+    ["Cookies", ["The site sets analytics cookies only after you click Accept on the cookie notice. If you click Decline, none are set. You can also clear or block cookies in your browser at any time. We use no advertising cookies."]],
+    ["Who handles it", ["We share data only with the services that run the site and our email, each under its own privacy terms:"], ["PostHog — site analytics.", "Buttondown — newsletter.", "Cloudflare and GitHub Pages — hosting and security.", "Cloudinary — images and video.", "Google Workspace — email."]],
+    ["", ["We may also share data with our professional advisers, or where required by law."]],
+    ["Security", ["We use reasonable technical and organisational measures to protect your data, including encrypted connections and restricted access to accounts. If you think your data has been misused, contact us at contact@actualobjects.net."]],
+    ["How long we keep it", ["We keep data only as long as needed for the purposes above. Newsletter addresses are kept until you unsubscribe. Analytics data is kept in aggregate. Copies may remain in backups for a limited time after deletion."]],
+    ["Your rights", ["Depending on where you live, including under the GDPR, UK GDPR and California law, you may have the right to:"], ["Access the personal data we hold about you.", "Correct data that is wrong or incomplete.", "Delete your data.", "Restrict or object to how we use it.", "Receive a copy of your data in a portable format.", "Withdraw consent at any time, for example by declining cookies or unsubscribing."]],
+    ["", ["To exercise any of these rights, email contact@actualobjects.net. We will not treat you differently for doing so. You can also complain to your local data protection authority."]],
+    ["Children", ["The site is not aimed at children under 16, and we do not knowingly collect their data."]],
+    ["Other websites", ["The site links to other websites, such as Vimeo, Instagram and press. We are not responsible for their content or how they handle data."]],
+    ["Business changes", ["If Actual Objects is restructured, sold or merged, data may pass to the new owner under the terms of this policy."]],
+    ["Changes to this policy", ["We may update this policy from time to time. Changes will be posted on this page with a new date."]],
+    ["Contact", ["Actual Objects LLC", "contact@actualobjects.net"]]
+  ];
+  const mail = t=>esc(t).replace(/contact@actualobjects\.net/g,'<a class="ul" href="mailto:contact@actualobjects.net">contact@actualobjects.net</a>');
+  app.innerHTML = `<div class="st pv">
+    <div class="g12"><h1 class="lead rv">Privacy</h1></div>
+    <div class="g12"><div class="pv-t rv">${S.map(([h,ps,li])=>`<div>${h?`<h2>${h}</h2>`:""}${ps.map(t=>`<p>${mail(t)}</p>`).join("")}${li&&li.length?`<ul>${li.map(t=>`<li>${mail(t)}</li>`).join("")}</ul>`:""}</div>`).join("")}</div></div>
+  </div>`;
+  reveal(app);
+}
 function viewCareers(){
   app.innerHTML = `<div class="st cr">
     <div class="g12"><h1 class="lead rv">Careers</h1></div>
@@ -1357,7 +1402,7 @@ function viewStudio(){
         <li style="margin-bottom:1.2em"><span class="copy ul" tabindex="0" title="Copy">contact@<wbr>actualobjects.net</span></li>
         <li><a class="ul" href="https://www.instagram.com/actualobjects/" target="_blank" rel="noopener">@actualobjects</a></li></ul></section>
       <section class="rv"><h2>Press</h2><ul>${[["Dazed", "https://www.dazeddigital.com/projects/article/57728/1/actual-objects"], ["Wired", ""], ["Fact Magazine, Future Shock", "https://www.factmag.com/2022/08/18/future-shock-actual-objects/"], ["Fact Magazine, Residency", "https://www.factmag.com/2021/10/09/fact-residency-actual-objects/"], ["Fact Magazine, VTSS Interview", "https://www.factmag.com/2024/02/16/interview-vtss-actual-objects/"], ["Fact Magazine, Jackie", "https://www.factmag.com/2021/10/06/actual-objects-presents-yves-tumor-jackie-behind-the-scenes/"], ["SSENSE", "https://www.ssense.com/en-gb/editorial/culture/get-real"], ["Vogue", "https://www.vogue.pl/a/vogueinternational-artysci-ktorzy-projektuja-cyfrowe-pokazy-mody"], ["Flaunt", "https://www.flaunt.com/post/rick-farin-sky-burn"], ["Milkx Taiwan", ""], ["ASVOFF", "https://vimeopro.com/asvoff/asvoff12/video/447972146"], ["Office Magazine", "https://officemagazine.net/actual-objects"]].map(([s,u])=>`<li>${u?`<a class="ul" href="${u}" target="_blank" rel="noopener">${s}</a>`:s}</li>`).join("")}</ul></section>
-      <section class="rv"><h2>Talks</h2><ul>${[["Gray Area Festival", "https://grayarea.org/community-entry/rick-farin-actual-objects/"], ["Indigo", "https://2024.indigo.ooo/en/lecture/rick-claire-farin/"], ["Unsound", "https://www.unsound.pl/en/noise/artists/rick-farin-and-actual-objects"], ["MIRA Festival", "https://mirafestival.com/en/artista/rick-farin-actual-objects/"], ["Onassis", "https://www.onassis.org/people/actual-objects"]].map(([s,u])=>`<li>${u?`<a class="ul" href="${u}" target="_blank" rel="noopener">${s}</a>`:s}</li>`).join("")}</ul></section>
+      <section class="rv"><h2>Talks</h2><ul>${[["Gray Area Festival", "https://grayarea.org/community-entry/rick-farin-actual-objects/"], ["Indigo", "https://2024.indigo.ooo/en/lecture/rick-claire-farin/"], ["Unsound", "https://www.unsound.pl/en/noise/artists/rick-farin-and-actual-objects"], ["MIRA Festival", "https://mirafestival.com/en/artista/rick-farin-actual-objects/"], ["Onassis", ""]].map(([s,u])=>`<li>${u?`<a class="ul" href="${u}" target="_blank" rel="noopener">${s}</a>`:s}</li>`).join("")}</ul></section>
       <section class="rv team"><h2>Team</h2><ul><li><span>Sr. Creative Director / Co-Founder</span><span>Rick Farin</span></li><li><span>Sr. Creative Director / Co-Founder</span><span>Claire Farin</span></li><li><span>Creative Director</span><span>Cole Daly</span></li><li><span>Executive Producer</span><span>Jordan Harkins</span></li><li><span>Head of Studio</span><span>Garrett Ingman</span></li></ul></section>
       <section class="rv clients"><h2>Clients</h2><ul>${[...new Set(Object.values(CLIENTS).flat())].sort((a,b)=>a.localeCompare(b, "en", {sensitivity:"base", numeric:true})).map(c=>`<li>${esc(c)}</li>`).join("")}</ul></section>
     </div></div>`;
@@ -2626,7 +2671,7 @@ async function route(first){
     if (view==="work" && $("#rgrid")){ if (openNo!==p.no) openRow(p.no, true); return; }
     pendingOpen = p.no; go("work", true); return;
   }
-  const next = p ? "project" : (["work","index","studio","careers","ghosts"].includes(key) ? key : "work");
+  const next = p ? "project" : (["work","index","studio","careers","ghosts","privacy"].includes(key) ? key : "work");
   document.querySelectorAll(".nav a").forEach(a=>{ if(a.dataset.v===next) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   $("#peek").classList.remove("on");
   selB = null;
@@ -2635,6 +2680,7 @@ async function route(first){
   if (next === "timeline"){
     view = "timeline";
     if (!app.hidden){ app.classList.add("fade"); await wait(RM?0:420); app.hidden = true; app.innerHTML=""; }
+    $("#foot").hidden = true;
     app.classList.remove("fade");
     document.body.classList.add("lock"); if (lenis) lenis.stop();
     fitMon(); edit.classList.remove("off");
@@ -2650,11 +2696,13 @@ async function route(first){
   const mv = $("#mon video"); if (mv) mv.pause();
   document.body.classList.remove("lock"); if (lenis){ lenis.start(); lenis.scrollTo(0,{immediate:true}); }
   app.hidden = false;
+  { const f = $("#foot"); f.hidden = false; f.querySelector(".yr").textContent = new Date().getFullYear(); }
   window.scrollTo(0,0);
   if (next==="project"){ viewProject(p); document.title=`${p.client} — ${p.title} · Actual Objects`; }
   else if (next==="index"){ viewIndex(); document.title="Index · Actual Objects"; }
   else if (next==="studio"){ viewStudio(); document.title="Studio · Actual Objects"; }
   else if (next==="careers"){ viewCareers(); document.title="Careers · Actual Objects"; }
+  else if (next==="privacy"){ viewPrivacy(); document.title="Privacy · Actual Objects"; }
   else if (next==="ghosts"){ viewBook(); document.title="Ghosts · Actual Objects"; }
   else { viewWork(); document.title="Actual Objects"; if (!introDone && rowsMode==="Field" && pendingOpen===null){ introDone = true; if (!RM){ $("#rbody").classList.add("mph-hide"); setTimeout(fieldIntro, first ? 650 : 0); } } if (pendingOpen!==null){ const n=pendingOpen; pendingOpen=null; setTimeout(()=>openRow(n,true), RM?0:500); } }
   if (!skipFade && !wasPage){ app.classList.add("fade"); app.getBoundingClientRect(); }
@@ -2724,7 +2772,7 @@ function cookieNotice(){
   if (v === "accept") { loadTrackers(); return; }
   if (v) return;
   const d = document.createElement("div"); d.id = "ck"; d.setAttribute("role","dialog"); d.setAttribute("aria-label","Cookies");
-  d.innerHTML = `<span>This site uses cookies.</span><button type="button" data-c="accept">Accept</button><button type="button" data-c="decline">Decline</button>`;
+  d.innerHTML = `<span>This site uses cookies.</span><button type="button" data-c="accept">Accept</button><button type="button" data-c="decline">Decline</button><a href="#privacy" class="ck-p">Privacy</a>`;
   popHost().appendChild(d);
   setTimeout(()=>d.classList.add("on"), 900);
   d.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ try{ LS.set("ao-cookies", b.dataset.c); }catch(e){} if (b.dataset.c==="accept") loadTrackers(); d.classList.remove("on"); setTimeout(()=>d.remove(), 600); }));
